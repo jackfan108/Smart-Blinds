@@ -1,0 +1,25 @@
+
+<html>
+ <head>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+  var value = 0;
+  function update() {
+  	value += 10;
+  	$("#myval").text(value);
+  }
+
+  $(function() {
+    setInterval(update, 500);
+  })();
+  </script>
+ </head>
+ <body>
+  Current value is <span id='myval'>{{ value }}</span>.
+  <form action = "/target_position/" method = "POST">
+    Input blind target position: <input type="text" name = "target_position"/>
+    <input type = "submit" value = "set" />
+  </form>  
+ </body>
+
+</html>

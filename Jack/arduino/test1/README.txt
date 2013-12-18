@@ -1,0 +1,2 @@
+This arduino code currently connects to wifi and sends five pieces of data in the form of data1 + "a" + data2 + "b" ... data5 + "e" and
+can receive two pieces of data in the form of data1 + "a" + data2 + "b."

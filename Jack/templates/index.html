@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Smart Blinds!!</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+  <!--This funciton updates the value of current_position every 500 milliseconds from "/orientation_value," which asks for the value from Redis.-->
+  $(document).ready(function() {
+  	console.log("ready");
+  	setInterval(function() {
+  	  console.log("triggered");
+  	  $.get('/orientation_value', function(data){
+  	  	var data = JSON.parse(data);
+  	  	$('#orientation_current_value_html').text(data['orientation_current_value']);
+  	  });
+      $.get('/position_value', function(data2){
+        var data2 = JSON.parse(data2);
+        console.log("yhdfklasjfkd");
+        $('#position_current_value_html').text(data2['position_current_value']);
+      });
+      $.get('/tempf', function(data3){
+        var data3 = JSON.parse(data3);
+        $('#tempf').text(data3['tempf']);
+      });
+      $.get('/tempc', function(data4){
+        var data4 = JSON.parse(data4);
+        $('#tempc').text(data4['tmepc']);
+      });
+      $.get('/light', function(data5){
+        var data5 = JSON.parse(data5);
+        $('#light').text(data5['light']);
+      });
+  	}, 500);
+  });
+
+  </script>
+ </head>
+ <body>
+  Orientation target value is {{ orientation_target_value_html }}.<br>
+  Orientation current value is <span id='orientation_current_value_html'> {{ orientation_current_value_html }} </span><br>
+
+  Position target value is {{ position_target_value_html }}.<br>
+  Position current value is <span id='position_current_value_html'> {{ position_current_value_html }} </span><br>
+  
+  Current temperature in fahrenheit is <span id='tempf '> {{ tempf }}. </span><br>
+  Current temperature in celcius is <span id='tempc '> {{ tempc }}. </span><br>
+  Current light intensity is <span id='light '> {{ light }}. </span><br>
+
+  <form action = "/" method = "POST"> 
+    Input blind orientation target position: <input type="text" name = "orientation_target_value"/><br>
+    Input blind position target position: <input type="text" name = "position_target_value">
+    <input type = "submit" value = "set" />
+  </form> 
+ </body>
+</html>
